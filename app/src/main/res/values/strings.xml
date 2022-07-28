@@ -16,11 +16,6 @@
     <string name="txt_login_header">Welcome Back!</string>
     <string name="txt_login_subheader">Login to access your notes</string>
     <string name="txt_login">Login</string>
-    <string name="txt_error_message">%1$S*</string>
-    <string name="note_title">Title</string>
-    <string name="txt_title_hint">Write your title</string>
-    <string name="txt_description">Description</string>
-    <string name="txt_description_hint">Write your description</string>
-    <string name="txt_submit">Submit</string>
-    <string name="add_note">Add Note</string>
+    <string name="username">Username</string>
+    <string name="xxx_xxx_com">xxx@xxx.com</string>
 </resources>
