@@ -18,8 +18,7 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
-    val userLiveData: LiveData<Resource<UserResponse>>
-        get() = userRepository.userLiveData
+    val userLiveData get() = userRepository.userLiveData
 
     fun registerUser(userRequest: UserRequest) = viewModelScope.launch(Dispatchers.IO) {
         userRepository.registerUser(userRequest)
