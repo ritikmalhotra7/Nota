@@ -60,12 +60,12 @@ class AddNoteFragment : Fragment() {
 
     private fun setupUI() {
         binding.apply {
-            val title = binding.txtTitle.text.toString()
-            val description = binding.txtDescription.text.toString()
-            val noteRequest = NoteRequest(title, description)
             if (note == null) {
                 btnDelete.visibility = View.GONE
                 btnSubmit.setOnClickListener{
+                    val title = binding.txtTitle.text.toString()
+                    val description = binding.txtDescription.text.toString()
+                    val noteRequest = NoteRequest(title, description)
                    noteViewModel.createNote(noteRequest)
                 }
             } else {
@@ -73,6 +73,9 @@ class AddNoteFragment : Fragment() {
                     note?.let { noteViewModel.deleteNote(note!!._id) }
                 }
                 btnSubmit.setOnClickListener{
+                    val title = binding.txtTitle.text.toString()
+                    val description = binding.txtDescription.text.toString()
+                    val noteRequest = NoteRequest(title, description)
                     note?.let{noteViewModel.updateNote(note!!._id,noteRequest)}
                 }
             }
@@ -80,28 +83,23 @@ class AddNoteFragment : Fragment() {
     }
 
     private fun bindObservers(){
-        Log.d("taget",noteViewModel.noteData.toString())
-        if(noteViewModel.noteData!= null){
-            noteViewModel.noteData.observe(viewLifecycleOwner) {
-                when (it) {
-                    is Resource.Loading -> {
-                        Log.d("taget","Loading")
-                        showLoader()
-                    }
-                    is Resource.Success -> {
-                        Log.d("taget","Success")
-                        findNavController().popBackStack()
-                        hideLoader()
-                    }
-                    is Resource.Error -> {
-                        Log.d("taget","Error")
-                        Toast.makeText(requireContext(),it.message.toString(), Toast.LENGTH_LONG).show()
-                        hideLoader()
-                    }
+        noteViewModel.noteData.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    Log.d("taget","Loading")
+                    showLoader()
+                }
+                is Resource.Success -> {
+                    Log.d("taget","Success")
+                    findNavController().popBackStack()
+                    hideLoader()
+                }
+                is Resource.Error -> {
+                    Log.d("taget","Error")
+                    Toast.makeText(requireContext(),it.message.toString(), Toast.LENGTH_LONG).show()
+                    hideLoader()
                 }
             }
-        }else{
-            Toast.makeText(requireContext(),"Empty Data", Toast.LENGTH_LONG).show()
         }
     }
 

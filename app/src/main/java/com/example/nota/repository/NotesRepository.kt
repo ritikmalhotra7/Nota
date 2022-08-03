@@ -46,11 +46,7 @@ class NotesRepository @Inject constructor(private val notesApi:NotesApi) {
     private fun handleNoteResponse(response: Response<NoteResponse>) {
         if (response.isSuccessful) {
             _notesLiveData.postValue(Resource.Success(response.body()!!))
-        } else if (response.errorBody() != null) {
-            val errorObject =
-                JSONObject(response.errorBody()!!.charStream().readText()).getString("message")
-            _notesLiveData.postValue(Resource.Error(errorObject))
-        } else {
+        }else {
             _notesLiveData.postValue(Resource.Error(response.message()))
         }
     }
@@ -58,11 +54,7 @@ class NotesRepository @Inject constructor(private val notesApi:NotesApi) {
     private fun handleNotesResponse(response: Response<List<NoteResponse>>) {
         if (response.isSuccessful) {
             _notesList.postValue(Resource.Success(response.body()!!))
-        } else if (response.errorBody() != null) {
-            val errorObject =
-                JSONObject(response.errorBody()!!.charStream().readText()).getString("message")
-            _notesList.postValue(Resource.Error(errorObject))
-        } else {
+        }else {
             _notesList.postValue(Resource.Error(response.message()))
         }
     }
