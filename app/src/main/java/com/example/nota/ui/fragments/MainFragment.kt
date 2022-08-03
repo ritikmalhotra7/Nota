@@ -7,12 +7,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.nota.R
 import com.example.nota.databinding.FragmentMainBinding
+import com.example.nota.models.NoteResponse
 import com.example.nota.ui.adapters.NoteAdapter
+import com.example.nota.utils.Constants.NOTE_KEY
 import com.example.nota.utils.Resource
+import com.example.nota.utils.TokenManager
 import com.example.nota.viewmodels.NoteViewModel
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /*
 * This is the fragment where your Notes are displayed
@@ -31,15 +38,24 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMainBinding.inflate(layoutInflater)
-        adapter = NoteAdapter()
+        adapter = NoteAdapter(::onNoteClick)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         noteViewModel.getNotes()
+        setupUI()
         bindObservers()
         setUpRecyclerView()
+    }
+
+    private fun setupUI() {
+        binding.apply {
+            addNote.setOnClickListener {
+                findNavController().navigate(R.id.action_mainFragment_to_addNoteFragment)
+            }
+        }
     }
 
     private fun setUpRecyclerView() {
@@ -63,6 +79,13 @@ class MainFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun onNoteClick(noteResponse:NoteResponse){
+        val bundle = Bundle().apply {
+            putString(NOTE_KEY,Gson().toJson(noteResponse))
+        }
+        findNavController().navigate(R.id.action_mainFragment_to_addNoteFragment,bundle)
     }
 
     private fun showLoader() {
