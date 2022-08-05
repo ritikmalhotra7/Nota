@@ -45,7 +45,6 @@ class AddNoteFragment : Fragment() {
 
     private fun setInitialUI() {
         val jsonNote = arguments?.getString(NOTE_KEY)
-        Log.d("taget",jsonNote.toString())
         if (jsonNote != null) {
             note = Gson().fromJson(jsonNote, NoteResponse::class.java)
             note.let {
