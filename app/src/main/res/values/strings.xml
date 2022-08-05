@@ -25,4 +25,8 @@
     <string name="add_note">Add Note</string>
     <string name="username">Username</string>
     <string name="xxx_xxx_com">xxx@xxx.com</string>
+    <string name="for_wireframe_you_need_to_have_access_to_the_tools_required_you_need_to_check_the_description_of_the_tool_to_understand_the_underpinnings_of_the_tool">For wireframe, you need to have access to the tools required. You need to check the description of the tool to understand the underpinnings of the tool.</string>
+    <string name="how_to_draw_a_professional_wireframe">How to draw a professional wireframe?</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="edit_note">Edit Note</string>
 </resources>

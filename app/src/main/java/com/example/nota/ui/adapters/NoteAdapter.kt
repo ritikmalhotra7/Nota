@@ -1,6 +1,7 @@
 package com.example.nota.ui.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nota.databinding.NoteItemBinding
 import com.example.nota.models.NoteResponse
 
-class NoteAdapter(private val noteClickListener: (NoteResponse) -> Unit) : ListAdapter<NoteResponse, NoteAdapter.NoteViewHolder>(ComparatorDiffUtil()) {
+class NoteAdapter(private val onViewClickListener:(View,NoteResponse) -> Unit) : ListAdapter<NoteResponse, NoteAdapter.NoteViewHolder>(ComparatorDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
@@ -33,8 +34,11 @@ class NoteAdapter(private val noteClickListener: (NoteResponse) -> Unit) : ListA
             binding.title.text = note.title
             binding.desc.text = note.description
             binding.root.setOnClickListener {
-                noteClickListener(note)
+                onViewClickListener(it,note)
             }
+            binding.optionMenu.setOnClickListener{
+                onViewClickListener(it,note)
+        }
         }
     }
 

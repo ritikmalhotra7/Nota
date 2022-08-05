@@ -45,6 +45,7 @@ class AddNoteFragment : Fragment() {
 
     private fun setInitialUI() {
         val jsonNote = arguments?.getString(NOTE_KEY)
+        Log.d("taget",jsonNote.toString())
         if (jsonNote != null) {
             note = Gson().fromJson(jsonNote, NoteResponse::class.java)
             note.let {
@@ -60,23 +61,14 @@ class AddNoteFragment : Fragment() {
 
     private fun setupUI() {
         binding.apply {
-            if (note == null) {
-                btnDelete.visibility = View.GONE
-                btnSubmit.setOnClickListener{
-                    val title = binding.txtTitle.text.toString()
-                    val description = binding.txtDescription.text.toString()
-                    val noteRequest = NoteRequest(title, description)
-                   noteViewModel.createNote(noteRequest)
-                }
-            } else {
-                btnDelete.setOnClickListener {
-                    note?.let { noteViewModel.deleteNote(note!!._id) }
-                }
-                btnSubmit.setOnClickListener{
-                    val title = binding.txtTitle.text.toString()
-                    val description = binding.txtDescription.text.toString()
-                    val noteRequest = NoteRequest(title, description)
-                    note?.let{noteViewModel.updateNote(note!!._id,noteRequest)}
+            btnSubmit.setOnClickListener{
+                val title = binding.txtTitle.text.toString()
+                val description = binding.txtDescription.text.toString()
+                val noteRequest = NoteRequest(title, description)
+                if (note == null) {
+                    noteViewModel.createNote(noteRequest)
+                }else{
+                    note?.let { noteViewModel.updateNote(note!!._id, noteRequest) }
                 }
             }
         }
