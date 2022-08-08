@@ -14,6 +14,7 @@ class NoteViewModel @Inject constructor(private val notesRepository: NotesReposi
 
     val noteData = notesRepository.notesLiveData
     val noteList = notesRepository.notesList
+    val isDeleted = notesRepository.isNoteDeleted
 
     fun createNote(note:NoteRequest) = viewModelScope.launch(Dispatchers.IO) {
         notesRepository.createNote(note)

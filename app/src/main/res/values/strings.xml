@@ -29,4 +29,7 @@
     <string name="how_to_draw_a_professional_wireframe">How to draw a professional wireframe?</string>
     <string name="delete_note">Delete Note</string>
     <string name="edit_note">Edit Note</string>
+    <string name="deleted">Deleted</string>
+    <string name="next">next</string>
+    <string name="finish">finish</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.nota.ui.fragments
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -110,6 +111,7 @@ class MainFragment : Fragment() {
         noteViewModel.noteList.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
+                    Log.d("taget","Loading")
                     showLoader()
                 }
                 is Resource.Success -> {
@@ -124,13 +126,14 @@ class MainFragment : Fragment() {
                 }
             }
         }
-        noteViewModel.noteData.observe(viewLifecycleOwner) {
+        noteViewModel.isDeleted.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
                     showLoader()
                 }
                 is Resource.Success -> {
                     noteViewModel.getNotes()
+                    Toast.makeText(ctx,getString(R.string.deleted),Toast.LENGTH_SHORT).show()
                     hideLoader()
                 }
                 is Resource.Error -> {

@@ -5,38 +5,44 @@ import androidx.lifecycle.MutableLiveData
 import com.example.nota.api.NotesApi
 import com.example.nota.models.NoteRequest
 import com.example.nota.models.NoteResponse
-import com.example.nota.models.UserResponse
 import com.example.nota.utils.Resource
-import dagger.Provides
-import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
-class NotesRepository @Inject constructor(private val notesApi:NotesApi) {
+class NotesRepository @Inject constructor(private val notesApi: NotesApi) {
 
     private val _notesLiveData: MutableLiveData<Resource<NoteResponse>> = MutableLiveData()
     val notesLiveData: LiveData<Resource<NoteResponse>> get() = _notesLiveData
 
-    private val _notesList:MutableLiveData<Resource<List<NoteResponse>>> = MutableLiveData()
-    val notesList:LiveData<Resource<List<NoteResponse>>> get() = _notesList
+    private val _notesList: MutableLiveData<Resource<List<NoteResponse>>> = MutableLiveData()
+    val notesList: LiveData<Resource<List<NoteResponse>>> get() = _notesList
 
-    suspend fun createNote(note:NoteRequest) {
+    private val isDeleted: MutableLiveData<Resource<Boolean>> = MutableLiveData()
+    val isNoteDeleted: LiveData<Resource<Boolean>> get() = isDeleted
+
+    suspend fun createNote(note: NoteRequest) {
         _notesLiveData.postValue(Resource.Loading())
         val response = notesApi.createNote(note)
         handleNoteResponse(response)
     }
-    suspend fun updateNote(noteId:String,note:NoteRequest){
+
+    suspend fun updateNote(noteId: String, note: NoteRequest) {
         _notesLiveData.postValue(Resource.Loading())
-        val response = notesApi.updateNote(noteId,note)
+        val response = notesApi.updateNote(noteId, note)
         handleNoteResponse(response)
     }
-    suspend fun deleteNote(noteId:String){
-        _notesLiveData.postValue(Resource.Loading())
+
+    suspend fun deleteNote(noteId: String) {
+        isDeleted.postValue(Resource.Loading())
         val response = notesApi.deleteNote(noteId)
-        handleNoteResponse(response)
+        if (response.isSuccessful) {
+            isDeleted.postValue(Resource.Success(true))
+        } else {
+            isDeleted.postValue(Resource.Error(response.message()))
+        }
     }
+
     suspend fun getAllNotes() {
         _notesLiveData.postValue(Resource.Loading())
         val response = notesApi.getNotes()
@@ -46,7 +52,7 @@ class NotesRepository @Inject constructor(private val notesApi:NotesApi) {
     private fun handleNoteResponse(response: Response<NoteResponse>) {
         if (response.isSuccessful) {
             _notesLiveData.postValue(Resource.Success(response.body()!!))
-        }else {
+        } else {
             _notesLiveData.postValue(Resource.Error(response.message()))
         }
     }
@@ -54,7 +60,7 @@ class NotesRepository @Inject constructor(private val notesApi:NotesApi) {
     private fun handleNotesResponse(response: Response<List<NoteResponse>>) {
         if (response.isSuccessful) {
             _notesList.postValue(Resource.Success(response.body()!!))
-        }else {
+        } else {
             _notesList.postValue(Resource.Error(response.message()))
         }
     }
