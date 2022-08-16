@@ -25,7 +25,7 @@ class SplashScreenFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSplashScreenBinding.inflate(layoutInflater)
         varContext = requireContext()
         splashScreenWorking()
@@ -50,10 +50,6 @@ class SplashScreenFragment : Fragment() {
                 findNavController().navigate(R.id.action_splashScreenFragment_to_signupFragment)
             }, 3000)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {

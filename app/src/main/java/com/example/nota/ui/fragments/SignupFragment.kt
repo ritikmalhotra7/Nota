@@ -29,7 +29,7 @@ class SignupFragment : Fragment() {
     private lateinit var password: String
     private lateinit var userName: String
 
-    private val authViewModel: AuthViewModel by viewModels<AuthViewModel>()
+    private val authViewModel: AuthViewModel by viewModels()
 
     private lateinit var varContext: Context
 
@@ -40,7 +40,7 @@ class SignupFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSignupBinding.inflate(layoutInflater)
         if (tokenManager.getToken() != null) {
             findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
@@ -60,7 +60,7 @@ class SignupFragment : Fragment() {
 
             btnSignUp.setOnClickListener {
                 setUserRequest()
-                val credPair = this.root.validateCredentials(userName, email, password, false)
+                val credPair = validateCredentials(userName, email, password, false)
                 if (credPair.first) {
                     authViewModel.registerUser(UserRequest(email, password, userName))
                 } else {

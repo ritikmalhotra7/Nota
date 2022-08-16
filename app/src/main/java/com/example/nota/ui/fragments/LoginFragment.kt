@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
     private lateinit var email: String
     private lateinit var password: String
 
-    private val authViewModel: AuthViewModel by viewModels<AuthViewModel>()
+    private val authViewModel: AuthViewModel by viewModels()
 
     private lateinit var varContext: Context
 
@@ -55,7 +55,11 @@ class LoginFragment : Fragment() {
 
             btnLogin.setOnClickListener {
                 setUserRequest()
-                val credPair = this.root.validateCredentials(email = email, password = password, isLogin = true)
+                val credPair = validateCredentials(
+                    email = email,
+                    password = password,
+                    isLogin = true
+                )
                 if (credPair.first) {
                     authViewModel.loginUser(UserRequest(email, password))
                 } else {

@@ -1,18 +1,12 @@
 package com.example.nota.utils
 
-import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.*
 import android.net.NetworkCapabilities.*
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.DocumentsContract
-import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
@@ -24,18 +18,16 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import com.example.nota.ui.activity.MainActivity
 import com.example.nota.utils.Constants.SHARED_PREFS
 import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 
-fun View.validateCredentials(
+fun validateCredentials(
     userName: String? = null,
     email: String,
     password: String,
-    isLogin:Boolean
+    isLogin: Boolean
 ): Pair<Boolean, String> {
     var res = Pair(true, "")
     if ((!isLogin && TextUtils.isEmpty(userName)) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
@@ -90,7 +82,7 @@ fun Context.toast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
 
-fun Context.checkEmail(email: String): Boolean {
+fun checkEmail(email: String): Boolean {
     val EMAIL_ADDRESS_REGEX: Pattern = Pattern.compile(
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                 "\\@" +
@@ -102,7 +94,7 @@ fun Context.checkEmail(email: String): Boolean {
     )
     return EMAIL_ADDRESS_REGEX.matcher(email).matches()
 }
-fun Context.checkPassword(password: String): Boolean {
+fun checkPassword(password: String): Boolean {
     val PASSWORD_REGEX = Pattern.compile("^" +
             "(?=.*[0-9])" +         //at least 1 digit
             "(?=.*[a-z])" +         //at least 1 lower case letter

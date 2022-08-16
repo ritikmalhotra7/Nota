@@ -1,13 +1,11 @@
 package com.example.nota.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.nota.R
 import com.example.nota.databinding.ActivityMainBinding
-import com.example.nota.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

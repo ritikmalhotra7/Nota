@@ -3,8 +3,6 @@ package com.example.nota.utils
 import android.content.Context
 import com.example.nota.utils.Constants.PREFS_TOKEN_FILE
 import com.example.nota.utils.Constants.USER_TOKEN
-import dagger.Module
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
