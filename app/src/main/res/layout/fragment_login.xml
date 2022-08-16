@@ -129,14 +129,5 @@
             android:text="@string/txt_no_account_signup"
             android:textSize="14sp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loader"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="40dp"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            android:visibility="gone"
-            app:lottie_rawRes="@raw/loading_animation" />
     </LinearLayout>
 </ScrollView>

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.nota.R
 import com.example.nota.databinding.FragmentLoginBinding
 import com.example.nota.models.UserRequest
+import com.example.nota.ui.activity.MainActivity
 import com.example.nota.utils.Resource
 import com.example.nota.utils.TokenManager
 import com.example.nota.utils.validateCredentials
@@ -37,7 +38,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(layoutInflater)
         varContext = requireContext()
         setUpUI()
@@ -78,14 +79,14 @@ class LoginFragment : Fragment() {
                 is Resource.Success -> {
                     tokenManager.saveToken(it.data!!.token)
                     findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
-                    binding.loader.visibility = View.GONE
+                    (activity as MainActivity).makeLoaderGone()
                 }
                 is Resource.Error -> {
                     binding.txtError.text = it.message.toString()
-                    binding.loader.visibility = View.GONE
+                    (activity as MainActivity).makeLoaderGone()
                 }
                 is Resource.Loading -> {
-                    binding.loader.visibility = View.VISIBLE
+                    (activity as MainActivity).makeLoaderVisible()
                 }
             }
         }

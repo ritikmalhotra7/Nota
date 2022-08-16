@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.example.nota.R
 import com.example.nota.databinding.FragmentOnBoardingBinding
 import com.example.nota.ui.adapters.ViewPagerAdapter
 
 class OnBoardingFragment : Fragment() {
+
     private var _binding: FragmentOnBoardingBinding? = null
     private val binding: FragmentOnBoardingBinding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,10 +40,20 @@ class OnBoardingFragment : Fragment() {
             ) {
                 when (position) {
                     2 -> {
-                        binding.tvNext.text = resources.getString(R.string.finish)
+                        binding.tvNext.apply {
+                            text = resources.getString(R.string.finish)
+                            setOnClickListener {
+                                findNavController().navigate(R.id.action_onBoardingFragment_to_signupFragment)
+                            }
+                        }
                     }
                     else -> {
-                        binding.tvNext.text = resources.getString(R.string.next)
+                        binding.tvNext.apply {
+                            text = resources.getString(R.string.next)
+                            setOnClickListener {
+                                binding.viewPager.currentItem = position + 1
+                            }
+                        }
                     }
                 }
             }

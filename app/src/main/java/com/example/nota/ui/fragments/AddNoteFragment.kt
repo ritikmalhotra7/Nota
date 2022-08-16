@@ -13,6 +13,7 @@ import com.example.nota.R
 import com.example.nota.databinding.FragmentAddNoteBinding
 import com.example.nota.models.NoteRequest
 import com.example.nota.models.NoteResponse
+import com.example.nota.ui.activity.MainActivity
 import com.example.nota.utils.Constants.NOTE_KEY
 import com.example.nota.utils.Resource
 import com.example.nota.viewmodels.NoteViewModel
@@ -31,7 +32,7 @@ class AddNoteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAddNoteBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -78,28 +79,20 @@ class AddNoteFragment : Fragment() {
             when (it) {
                 is Resource.Loading -> {
                     Log.d("taget","Loading")
-                    showLoader()
+                    (activity as MainActivity).makeLoaderVisible()
                 }
                 is Resource.Success -> {
                     Log.d("taget","Success")
                     findNavController().popBackStack()
-                    hideLoader()
+                    (activity as MainActivity).makeLoaderGone()
                 }
                 is Resource.Error -> {
                     Log.d("taget","Error")
                     Toast.makeText(requireContext(),it.message.toString(), Toast.LENGTH_LONG).show()
-                    hideLoader()
+                    (activity as MainActivity).makeLoaderGone()
                 }
             }
         }
-    }
-
-    private fun showLoader() {
-        binding.loader.visibility = View.VISIBLE
-    }
-
-    private fun hideLoader() {
-        binding.loader.visibility = View.GONE
     }
 
     override fun onDestroyView() {

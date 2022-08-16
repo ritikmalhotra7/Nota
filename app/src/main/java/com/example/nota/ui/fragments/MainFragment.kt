@@ -17,6 +17,7 @@ import com.example.nota.R
 import com.example.nota.databinding.FragmentMainBinding
 import com.example.nota.databinding.NoteItemBinding
 import com.example.nota.models.NoteResponse
+import com.example.nota.ui.activity.MainActivity
 import com.example.nota.ui.adapters.NoteAdapter
 import com.example.nota.utils.Constants.NOTE_KEY
 import com.example.nota.utils.Resource
@@ -59,11 +60,7 @@ class MainFragment : Fragment() {
 
     private fun setupUI() {
         setUpRecyclerView()
-        binding.apply {
-            addNote.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_addNoteFragment)
-            }
-        }
+
     }
 
     private fun setUpRecyclerView() {
@@ -112,45 +109,37 @@ class MainFragment : Fragment() {
             when (it) {
                 is Resource.Loading -> {
                     Log.d("taget","Loading")
-                    showLoader()
+                    (activity as MainActivity).makeLoaderVisible()
                 }
                 is Resource.Success -> {
                     listNotes = it.data!!
                     adapter.submitList(listNotes)
-                    hideLoader()
+                    (activity as MainActivity).makeLoaderGone()
                 }
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG)
                         .show()
-                    hideLoader()
+                    (activity as MainActivity).makeLoaderGone()
                 }
             }
         }
         noteViewModel.isDeleted.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
-                    showLoader()
+                    (activity as MainActivity).makeLoaderGone()
                 }
                 is Resource.Success -> {
                     noteViewModel.getNotes()
                     Toast.makeText(ctx,getString(R.string.deleted),Toast.LENGTH_SHORT).show()
-                    hideLoader()
+                    (activity as MainActivity).makeLoaderGone()
                 }
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG)
                         .show()
-                    hideLoader()
+                    (activity as MainActivity).makeLoaderGone()
                 }
             }
         }
-    }
-
-    private fun showLoader() {
-        binding.loader.visibility = View.VISIBLE
-    }
-
-    private fun hideLoader() {
-        binding.loader.visibility = View.GONE
     }
 
     override fun onDestroyView() {

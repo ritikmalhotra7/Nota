@@ -26,6 +26,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import com.example.nota.ui.activity.MainActivity
+import com.example.nota.utils.Constants.SHARED_PREFS
 import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 
@@ -44,6 +46,13 @@ fun View.validateCredentials(
         res = Pair(false, "Password length must be greater than 7")
     }
     return res
+}
+fun Context.saveString(withThis:String,saveThis:String):Boolean{
+    return this.getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE).edit().putString(withThis,saveThis).commit()
+}
+
+fun Context.readString(readThis:String):String?{
+    return this.getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE).getString(readThis,null)
 }
 
 fun Context.isConnected(): Boolean {
@@ -149,3 +158,4 @@ fun View.makeVisible() {
 fun View.moveToNextFragment(directions: Int,dataToPass:Bundle?) {
     findNavController().navigate(directions,dataToPass)
 }
+

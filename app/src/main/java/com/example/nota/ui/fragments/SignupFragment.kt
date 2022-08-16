@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.nota.R
 import com.example.nota.databinding.FragmentSignupBinding
 import com.example.nota.models.UserRequest
+import com.example.nota.ui.activity.MainActivity
 import com.example.nota.utils.Resource
 import com.example.nota.utils.TokenManager
 import com.example.nota.utils.validateCredentials
@@ -41,7 +42,7 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignupBinding.inflate(layoutInflater)
-        if(tokenManager.getToken() != null){
+        if (tokenManager.getToken() != null) {
             findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
         }
         varContext = requireContext()
@@ -59,14 +60,14 @@ class SignupFragment : Fragment() {
 
             btnSignUp.setOnClickListener {
                 setUserRequest()
-                val credPair = this.root.validateCredentials(userName, email, password,false)
+                val credPair = this.root.validateCredentials(userName, email, password, false)
                 if (credPair.first) {
                     authViewModel.registerUser(UserRequest(email, password, userName))
                 } else {
                     txtError.text = credPair.second
                 }
             }
-            btnLogin.setOnClickListener{
+            btnLogin.setOnClickListener {
                 findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
             }
         }
@@ -84,14 +85,14 @@ class SignupFragment : Fragment() {
                 is Resource.Success -> {
                     tokenManager.saveToken(it.data!!.token)
                     findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
-                    binding.loader.visibility = View.GONE
+                    (activity as MainActivity).makeLoaderGone()
                 }
                 is Resource.Error -> {
                     binding.txtError.text = it.message.toString()
-                    binding.loader.visibility = View.GONE
+                    (activity as MainActivity).makeLoaderGone()
                 }
                 is Resource.Loading -> {
-                    binding.loader.visibility = View.VISIBLE
+                    (activity as MainActivity).makeLoaderVisible()
                 }
             }
         }

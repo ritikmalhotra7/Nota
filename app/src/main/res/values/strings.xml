@@ -32,4 +32,7 @@
     <string name="deleted">Deleted</string>
     <string name="next">next</string>
     <string name="finish">finish</string>
+    <string name="You_have_logged_in_before">You have logged in before</string>
+    <string name="something_wrong_happened">999: Something Wrong Happened</string>
+    <string name="notes">Notes</string>
 </resources>

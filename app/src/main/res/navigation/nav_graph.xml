@@ -48,7 +48,7 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_signupFragment2"
+            android:id="@+id/action_splashScreenFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
         <action
             android:id="@+id/action_splashScreenFragment_to_onBoardingFragment"
