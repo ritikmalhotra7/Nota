@@ -11,9 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_80sdp"
+        app
         android:layout_marginTop="@dimen/_minus30sdp"
         app:cardCornerRadius="@dimen/_20sdp"
-        app:cardElevation="@dimen/_50sdp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -22,13 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_30sdp"
-        android:elevation="@dimen/_51sdp"
+        android:elevation="@dimen/_1sdp"
         android:fontFamily="@font/sf_pro_display_bold"
         android:text="@string/notes"
         android:textColor="@color/black"
         android:textSize="@dimen/_28ssp"
-        app:layout_constraintStart_toStartOf="@id/toolbar"
-        app:layout_constraintTop_toTopOf="@id/toolbar" />
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="@id/toolbar"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

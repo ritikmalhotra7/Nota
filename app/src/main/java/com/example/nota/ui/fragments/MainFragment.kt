@@ -46,8 +46,10 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(layoutInflater)
+
         ctx = requireContext()
         activity = requireActivity()
+        (activity as MainActivity).showToolbar()
         return binding.root
     }
 

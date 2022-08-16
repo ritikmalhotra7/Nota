@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fillViewport="true"
-    >
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:nestedScrollingEnabled="true"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_20sdp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/note_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:nestedScrollingEnabled="true"
-        android:orientation="vertical">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/note_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:itemCount="20"
-            android:nestedScrollingEnabled="true"
-            tools:listitem="@layout/note_item" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+        tools:itemCount="20"
+        tools:listitem="@layout/note_item" />
+</LinearLayout>
