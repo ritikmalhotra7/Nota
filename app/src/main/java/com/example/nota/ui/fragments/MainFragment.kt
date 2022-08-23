@@ -78,6 +78,15 @@ class MainFragment : Fragment() {
         if (view.id == itemBinding.optionMenu.id) {
             onOptionClicked(view, note)
         }
+        if(view.id == itemBinding.root.id){
+            val bundle = Bundle().apply {
+                putString(NOTE_KEY, Gson().toJson(note))
+            }
+            findNavController().navigate(
+                R.id.action_mainFragment_to_addNoteFragment,
+                bundle
+            )
+        }
     }
 
     private fun onOptionClicked(view: View, note: NoteResponse) {
@@ -86,15 +95,6 @@ class MainFragment : Fragment() {
 
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.edit_note_item -> {
-                    val bundle = Bundle().apply {
-                        putString(NOTE_KEY, Gson().toJson(note))
-                    }
-                    findNavController().navigate(
-                        R.id.action_mainFragment_to_addNoteFragment,
-                        bundle
-                    )
-                }
                 R.id.delete_note_item -> {
                     noteViewModel.deleteNote(note._id)
                 }

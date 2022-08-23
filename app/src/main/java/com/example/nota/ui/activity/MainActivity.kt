@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.nota.R
 import com.example.nota.databinding.ActivityMainBinding
@@ -24,20 +25,20 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-
         binding.apply {
             addNote.apply {
                 setOnClickListener {
-                    navController
+                    findNavController()
                         .navigate(R.id.action_mainFragment_to_addNoteFragment)
                 }
             }
 
-            navController.addOnDestinationChangedListener { controller, destination, arguments ->
-
+            findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { controller, destination, arguments ->
+                if(controller.currentDestination!!.id == R.id.mainFragment){
+                    showToolbar()
+                }else{
+                    hideToolbar()
+                }
             }
         }
     }
