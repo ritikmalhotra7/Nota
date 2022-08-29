@@ -150,4 +150,15 @@ fun View.makeVisible() {
 fun View.moveToNextFragment(directions: Int,dataToPass:Bundle?) {
     findNavController().navigate(directions,dataToPass)
 }
+fun Context.openWebView(url: String) {
+    val builder = CustomTabsIntent.Builder()
+    // add share button to overflow men
+    builder.addDefaultShareMenuItem()
+    builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+    val customTabsIntent = builder.build()
+    customTabsIntent.launchUrl(
+        this,
+        Uri.parse(url)
+    )
+}
 
