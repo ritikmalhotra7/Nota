@@ -34,6 +34,7 @@ class AddNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddNoteBinding.inflate(layoutInflater)
+        (activity as MainActivity).hideToolbar()
         return binding.root
     }
 

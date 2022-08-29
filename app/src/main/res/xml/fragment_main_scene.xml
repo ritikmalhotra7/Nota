@@ -1,47 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
-       <KeyFrameSet>
-       </KeyFrameSet>
+        <KeyFrameSet></KeyFrameSet>
         <OnSwipe
-            motion:touchAnchorId="@+id/note_list"
             motion:dragDirection="dragUp"
+            motion:touchAnchorId="@+id/note_list"
             motion:touchAnchorSide="top" />
     </Transition>
 
-    <ConstraintSet android:id="@+id/start">
-    </ConstraintSet>
+    <ConstraintSet android:id="@+id/start"></ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="@dimen/_20sdp"
-            motion:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/_minus55sdp"
-            android:id="@+id/textView" />
-        <Constraint
-            android:id="@+id/note_list"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
+            android:id="@+id/note_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/add_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/add_note"
             android:layout_marginEnd="@dimen/_minus60sdp"
-            android:layout_marginBottom="@dimen/_20sdp" />
+            android:layout_marginBottom="@dimen/_20sdp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent" />
     </ConstraintSet>
 </MotionScene>

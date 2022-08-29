@@ -2,9 +2,13 @@ package com.example.nota.ui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.nota.R
@@ -24,36 +28,41 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         binding.apply {
             addNote.apply {
                 setOnClickListener {
-                    findNavController()
+                   navController
                         .navigate(R.id.action_mainFragment_to_addNoteFragment)
                 }
             }
+            navController.addOnDestinationChangedListener(object:NavController.OnDestinationChangedListener{
+                override fun onDestinationChanged(
+                    controller: NavController,
+                    destination: NavDestination,
+                    arguments: Bundle?
+                ) {
+                    Log.d(TAG,controller.currentDestination!!.id.toString()+"    "+R.id.mainFragment.toString())
+                    if(controller.currentDestination!!.id == R.id.mainFragment){
+                        showToolbar()
+                    }else{
 
-            findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { controller, destination, arguments ->
-                if(controller.currentDestination!!.id == R.id.mainFragment){
-                    showToolbar()
-                }else{
-                    hideToolbar()
+                    }
                 }
-            }
+            })
         }
     }
 
     fun showToolbar() {
-        binding.toolbar.makeVisible()
-        binding.addNote.makeVisible()
-        binding.textView.makeVisible()
+        binding.toolbar.setVisibilityForMotionLayout(View.VISIBLE)
     }
 
-    private fun hideToolbar() {
-        binding.toolbar.makeGone()
-        binding.addNote.makeGone()
-        binding.textView.makeGone()
+    fun hideToolbar() {
+        binding.toolbar.setVisibilityForMotionLayout(View.VISIBLE)
     }
+
 
     fun makeLoaderVisible() {
         binding.loader.makeVisible()
@@ -66,5 +75,13 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+}
+fun View.setVisibilityForMotionLayout(visibility: Int) {
+    val motionLayout = parent as MotionLayout
+    motionLayout.constraintSetIds.forEach {
+        val constraintSet = motionLayout.getConstraintSet(it) ?: return@forEach
+        constraintSet.setVisibility(this.id, visibility)
+        constraintSet.applyTo(motionLayout)
     }
 }

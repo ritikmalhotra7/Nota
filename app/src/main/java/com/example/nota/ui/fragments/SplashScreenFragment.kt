@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.nota.R
 import com.example.nota.databinding.FragmentSplashScreenBinding
+import com.example.nota.ui.activity.MainActivity
 import com.example.nota.utils.Constants.SPLASH_SCREEN_KEY
 import com.example.nota.utils.readString
 import com.example.nota.utils.saveString

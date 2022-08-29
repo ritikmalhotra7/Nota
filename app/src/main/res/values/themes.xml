@@ -7,7 +7,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
-    <style name="CardviewStyle" parent="CardView">
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="CardViewStyle" parent="CardView">
+        <item name="android:colorBackground">@color/black</item>
     </style>
 </resources>

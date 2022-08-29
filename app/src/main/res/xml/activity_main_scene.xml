@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
@@ -8,44 +7,81 @@
         motion:constraintSetStart="@id/start"
         motion:duration="1000"
         motion:motionInterpolator="easeIn">
-        <OnSwipe motion:touchAnchorId="@+id/nav_host_fragment"
+        <OnSwipe
             motion:dragDirection="dragUp"
-            motion:maxVelocity="0.20" />
+            motion:maxVelocity="0.20"
+            motion:touchAnchorId="@+id/nav_host_fragment" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
+
+        <Constraint
+            android:id="@+id/toolbar">
+            <PropertySet motion:visibilityMode="ignore"/>
+        </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_80sdp"
-            motion:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="-110dp"
-            android:id="@+id/toolbar"
-            android:elevation="@dimen/_1sdp" />
+            android:elevation="@dimen/_1sdp"
+            motion:visibilityMode="ignore"
+            motion:layout_constraintTop_toTopOf="parent" >
+            <PropertySet motion:visibilityMode="ignore"/>
+        </Constraint>
         <Constraint
+            android:id="@+id/nav_host_fragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            motion:visibilityMode="ignore"
             motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/toolbar"
-            android:layout_marginTop="@dimen/_1sdp"
-            android:id="@+id/nav_host_fragment" />
+            motion:layout_constraintTop_toBottomOf="@id/tabLayout"  >
+            <PropertySet motion:visibilityMode="ignore"/>
+        </Constraint>
         <Constraint
-            motion:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/add_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_minus60sdp"
+            motion:visibilityMode="ignore"
             motion:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/add_note"
-            android:layout_marginEnd="@dimen/_minus60sdp" />
+            motion:layout_constraintEnd_toEndOf="parent"  >
+            <PropertySet motion:visibilityMode="ignore"/>
+        </Constraint>
         <Constraint
-            android:elevation="@dimen/_51sdp"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
-            motion:layout_constraintTop_toTopOf="@id/toolbar"
-            motion:layout_constraintStart_toStartOf="@id/toolbar"
             android:layout_marginTop="@dimen/_30sdp"
-            android:id="@+id/textView" />
+            android:elevation="@dimen/_51sdp"
+            motion:visibilityMode="ignore"
+            motion:layout_constraintStart_toStartOf="@id/toolbar"
+            motion:layout_constraintTop_toTopOf="@id/toolbar"  >
+            <PropertySet motion:visibilityMode="ignore"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_1sdp"
+            motion:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
+            motion:layout_constraintTop_toBottomOf="@id/toolbar"  >
+            <PropertySet motion:visibilityMode="ignore"/>
+        </Constraint>
+        <Constraint
+            android:elevation="@dimen/_21sdp"
+            motion:layout_constraintEnd_toEndOf="@id/toolbar"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_25sdp"
+            motion:layout_constraintBottom_toBottomOf="@id/toolbar"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginEnd="0dp"
+            android:id="@+id/iv_search"  >
+            <PropertySet motion:visibilityMode="ignore"/>
+        </Constraint>
     </ConstraintSet>
 </MotionScene>
